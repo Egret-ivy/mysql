@@ -17,7 +17,7 @@ type depot struct {
 type cloth struct {
 	cloth_id string
 	size     string
-	price    int
+	price    float32
 	kinds    string
 }
 
@@ -162,18 +162,39 @@ func queryGradeMer() {
 }
 
 func insert() {
-	sqlStr := `insert into depot(depot_id,volume) values("789",300);`
-	ret, err := db.Exec(sqlStr)
+	sqlStr := `insert into depot(depot_id,volume) values("12345",300);`
+	_, err := db.Exec(sqlStr)
 	if err != nil {
 		fmt.Printf("insert failed %v", err)
 		return
 	}
-	theID, err := ret.LastInsertId() // 新插入数据的id
+	sqlStr1 := `insert into cloth(cloth_id,size,price,kinds) values("022",'L',300,"cute");`
+	_, err = db.Exec(sqlStr1)
 	if err != nil {
-		fmt.Printf("get lastinsert ID failed, err:%v\n", err)
+		fmt.Printf("insert failed %v", err)
 		return
 	}
-	fmt.Printf("insert success, the id is %d.\n", theID)
+	sqlStr2 := `insert into merchant(mer_id,name) values("088","CCCC");`
+	_, err = db.Exec(sqlStr2)
+	if err != nil {
+		fmt.Printf("insert failed %v", err)
+		return
+	}
+	sqlStr3 := `insert into produce(cloth_id,mer_id,grade) values("022","099","B");`
+	_, err = db.Exec(sqlStr3)
+	if err != nil {
+		fmt.Printf("insert failed %v", err)
+		return
+	}
+
+	fmt.Println("insert success")
+
+	// theID, err := ret.LastInsertId() // 新插入数据的id
+	// if err != nil {
+	// 	fmt.Printf("get lastinsert ID failed, err:%v\n", err)
+	// 	return
+	// }
+	// fmt.Printf("insert success, the id is %d.\n", theID)
 }
 
 // 更新数据
@@ -191,6 +212,7 @@ func updateRow() {
 		if err != nil {
 			fmt.Printf("scan %s failed %v", sqlStr1, err)
 		}
+		fmt.Println(c6.price)
 		var newPrice float32
 		newPrice = float32(c6.price) * 1.10
 		sqlStr := "update cloth set price = ? where size = 'S'"
@@ -241,8 +263,8 @@ func main() {
 	//queryAcloth()
 	//queryGradeMer()
 	//updateRow()
-	deleteRow()
-	//inert()
+	//deleteRow()
+	insert()
 	//updateRow()
 	//deleteRow()
 }
