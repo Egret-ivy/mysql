@@ -1,0 +1,27 @@
+CREATE TABLE `cloth` (                                                                                                                                                                                                                                                                                         
+          `cloth_id` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,                                                                                                                                                                                                                            
+          `size` VARCHAR(30) DEFAULT NULL,                                                                                                                                                                                                                                                                             
+          `price` FLOAT DEFAULT NULL,                                                                                                                                                                                                                                                                                  
+          `kinds` VARCHAR(30) DEFAULT NULL,                                                                                                                                                                                                                                                                            
+          PRIMARY KEY (`cloth_id`)                                                                                                                                                                                                                                                                                     
+        );
+        
+        
+CREATE TABLE `depot` (                                                                                                                                                                
+          `depot_id` VARCHAR(30) NOT NULL,                                                                                                                                                    
+          `volume` INT DEFAULT NULL,                                                                                                                                                          
+          PRIMARY KEY (`depot_id`)                                                                                                                                                            
+        );
+        
+CREATE TABLE `merchant` (                                                                                                                                                                                                                   
+            `mer_id` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,                                                                                                                                                           
+            `name` VARCHAR(30) DEFAULT NULL,                                                                                                                                                                                                          
+            PRIMARY KEY (`mer_id`)                                                                                                                                                                                                                    
+          );
+          
+CREATE TABLE `ro` (                                                                                                                                                                                                                 
+           `cloth_id` VARCHAR(30) NOT NULL,                                                                                                                                                                                                       
+           `mer_id` VARCHAR(30) NOT NULL,                                                                                                                                                                                                         
+           `grade` VARCHAR(30) DEFAULT NULL,                                                                                                                                                                                                      
+           PRIMARY KEY (`cloth_id`,`mer_id`)                                                                                                                                                                                                      
+         );
